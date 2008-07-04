@@ -8,9 +8,8 @@ LEADING_PAGE_RANGE = TRAILING_PAGE_RANGE = 8
 NUM_PAGES_OUTSIDE_RANGE = 2
 ADJACENT_PAGES = 4
 
-@register.inclusion_tag('paginator/paginator.html', takes_context=True)
-def paginator(context):
-    page = context['jewelry'] #FIXME
+@register.inclusion_tag('paginator/paginator.html')
+def paginator(page, url_format):
     num_pages = page.paginator.num_pages
 
     if (page.has_other_pages()):
@@ -33,11 +32,15 @@ def paginator(context):
             pages_outside_leading_range = [n + num_pages for n in range(0, -NUM_PAGES_OUTSIDE_RANGE, -1)]
             pages_outside_trailing_range = [n + 1 for n in range(0, NUM_PAGES_OUTSIDE_RANGE)]
         return {
-            'base_url': 'blah?page=', #FIXME
+            'url_format': url_format,
             'page': page,
             'page_numbers': page_numbers,
             'in_leading_range' : in_leading_range,
             'in_trailing_range' : in_trailing_range,
             'pages_outside_leading_range': pages_outside_leading_range,
-            'pages_outside_trailing_range': pages_outside_trailing_range
+            'pages_outside_trailing_range': pages_outside_trailing_range,
         }
+
+@register.simple_tag
+def paginator_page_url(url_format, page):
+    return url_format % (page,)
