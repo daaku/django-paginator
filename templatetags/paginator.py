@@ -10,7 +10,7 @@ ADJACENT_PAGES = 4
 
 @register.inclusion_tag('paginator/paginator.html', takes_context=True)
 def paginator(context):
-    page = context['jewelry']
+    page = context['jewelry'] #FIXME
     num_pages = page.paginator.num_pages
 
     if (page.has_other_pages()):
@@ -35,7 +35,6 @@ def paginator(context):
         return {
             'base_url': 'blah?page=', #FIXME
             'page': page,
-            'results_per_page': 6, #FIXME
             'page_numbers': page_numbers,
             'in_leading_range' : in_leading_range,
             'in_trailing_range' : in_trailing_range,
