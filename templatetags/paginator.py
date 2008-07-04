@@ -43,4 +43,9 @@ def paginator(page, url_format):
 
 @register.simple_tag
 def paginator_page_url(url_format, page):
-    return url_format % (page,)
+    # either a callable
+    if callable(url_format):
+        return url_format(page)
+    # or a format string
+    else:
+        return url_format % (page,)
