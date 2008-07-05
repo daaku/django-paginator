@@ -19,7 +19,7 @@
 
     {% for num in page_numbers %}
     {% ifequal num page.number %}
-    <li class="curr" title="Current Page">{{ num }}</li>
+    <li class="curr" title="Current Page"><span>{{ num }}</span></li>
     {% else %}
     <li class="page">
         <a href="{% paginator_page_url url_format num %}" title="Page {{ num }}">{{ num }}</a>
